@@ -1,0 +1,55 @@
+--- 
+published: true
+status: publish
+layout: post
+meta: 
+  _wp_old_slug: simple-way-to-run-something-as-another-user
+  _edit_last: "2"
+type: post
+tags: 
+- C
+- Code
+- Unix
+title: Run something as another user
+---
+<p>Here is a simple way to run something on UNIX / Linux as another user, without having to resort to weird sudo incantations. The Makefile is left as an exercise for the reader.</p>
+<p>This has only been tested on FreeBSD, Debian Linux and OpenSolaris so far.</p>
+<p>Compile with: cc -o setuid setuid.c</p>
+<pre class="brush:cpp">#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;pwd.h&gt;
+#include &lt;grp.h&gt; 
+
+int main(int argc, const char **argv) {
+
+    /* Check command line */
+    if (argc &lt; 3) {
+        fprintf(stderr, "Usage: %s user cmd\n", argv[0]);
+        return 1;
+    }
+
+    struct passwd *pw;
+    pw = getpwnam(argv[1]);
+
+    if (pw==NULL) {
+        fprintf(stderr, "User not found\n");
+        return 1;
+    }
+
+    if (initgroups(argv[1], pw-&gt;pw_gid)==-1) {
+        perror("initgroups");
+        return 1;
+    }
+
+    if (setregid(pw-&gt;pw_gid, pw-&gt;pw_gid)==0 &amp;&amp;
+        setreuid(pw-&gt;pw_uid, pw-&gt;pw_uid)==0) {
+        argv += 2;
+        execvp(argv[0], argv);
+        perror("exec");
+        return 1;
+    }
+
+    perror("setre[gu]id");
+    return 1;
+
+}</pre>

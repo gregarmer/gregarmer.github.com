@@ -1,0 +1,46 @@
+--- 
+published: false
+status: draft
+layout: post
+meta: 
+  _edit_last: "2"
+type: post
+tags: 
+- General
+title: Setting up ADSL PPPoE on OpenBSD 4.x
+---
+<div id="_mcePaste" style="position: absolute; left: -10000px; top: 0px; width: 1px; height: 1px; overflow-x: hidden; overflow-y: hidden;">/usr/local/sbin/openvpn --daemon --config /etc/openvpn_propdata/openvpn.conf</div>
+I recently moved my PPPoE session from my router to my internal OpenBSD firewall / gateway. This was mostly due to me getting sick of setting up port forwards on the router. PF now controls everything itself.
+
+My physical setup is something like the following:
+http://openbsd-wiki.org/index.php?title=PPPoE_Router_and_Firewall
+<pre>
+
+   +------------------+
+   | Internal Network |
+   |  192.168.2.0/24  |
+   +--------+---------+
+            |
+            |
+   +--------+--------+
+   | Internal Switch |
+   +--------+--------+
+            |
+            |
+            | (rl1)
+   +--------+--------+
+   |   OpenBSD 4.4   |
+   +--------+--------+
+            | (rl0)
+            |
+            | (LAN1)
+   +--------+--------+
+   |   SMC Router    |
+   | in bridge mode  |
+   +-----------------+
+           | (Tel Line)
+           |
+   +-------+---------+
+   | Here be dragons |
+   +-----------------+
+</pre>

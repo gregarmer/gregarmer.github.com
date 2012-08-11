@@ -1,0 +1,137 @@
+--- 
+published: true
+status: publish
+layout: post
+meta: 
+  _edit_last: "2"
+type: post
+tags: 
+- C
+- Code
+- Python
+title: Extending Python with modules written in C
+---
+Using C (or C++) to create Python modules is really quite simple, providing you know a little C of course. I recently had to do some work around getting a bunch of legacy C code talking to a newer system and thought I'd post a nice simple example of how the Python extensions work.
+
+This code gives you a single method "do()" that will print the output of a command, passed to it as a string, to stdout and return the exit code as a python int.
+
+Dump this into "mycmd.c":
+<style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #ffffff; }
+body .c { color: #999988; font-style: italic } /* Comment */
+body .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+body .k { font-weight: bold } /* Keyword */
+body .o { font-weight: bold } /* Operator */
+body .cm { color: #999988; font-style: italic } /* Comment.Multiline */
+body .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
+body .c1 { color: #999988; font-style: italic } /* Comment.Single */
+body .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
+body .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #aa0000 } /* Generic.Error */
+body .gh { color: #999999 } /* Generic.Heading */
+body .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #555555 } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #aaaaaa } /* Generic.Subheading */
+body .gt { color: #aa0000 } /* Generic.Traceback */
+body .kc { font-weight: bold } /* Keyword.Constant */
+body .kd { font-weight: bold } /* Keyword.Declaration */
+body .kn { font-weight: bold } /* Keyword.Namespace */
+body .kp { font-weight: bold } /* Keyword.Pseudo */
+body .kr { font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+body .m { color: #009999 } /* Literal.Number */
+body .s { color: #bb8844 } /* Literal.String */
+body .na { color: #008080 } /* Name.Attribute */
+body .nb { color: #999999 } /* Name.Builtin */
+body .nc { color: #445588; font-weight: bold } /* Name.Class */
+body .no { color: #008080 } /* Name.Constant */
+body .ni { color: #800080 } /* Name.Entity */
+body .ne { color: #990000; font-weight: bold } /* Name.Exception */
+body .nf { color: #990000; font-weight: bold } /* Name.Function */
+body .nn { color: #555555 } /* Name.Namespace */
+body .nt { color: #000080 } /* Name.Tag */
+body .nv { color: #008080 } /* Name.Variable */
+body .ow { font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #009999 } /* Literal.Number.Float */
+body .mh { color: #009999 } /* Literal.Number.Hex */
+body .mi { color: #009999 } /* Literal.Number.Integer */
+body .mo { color: #009999 } /* Literal.Number.Oct */
+body .sb { color: #bb8844 } /* Literal.String.Backtick */
+body .sc { color: #bb8844 } /* Literal.String.Char */
+body .sd { color: #bb8844 } /* Literal.String.Doc */
+body .s2 { color: #bb8844 } /* Literal.String.Double */
+body .se { color: #bb8844 } /* Literal.String.Escape */
+body .sh { color: #bb8844 } /* Literal.String.Heredoc */
+body .si { color: #bb8844 } /* Literal.String.Interpol */
+body .sx { color: #bb8844 } /* Literal.String.Other */
+body .sr { color: #808000 } /* Literal.String.Regex */
+body .s1 { color: #bb8844 } /* Literal.String.Single */
+body .ss { color: #bb8844 } /* Literal.String.Symbol */
+body .bp { color: #999999 } /* Name.Builtin.Pseudo */
+body .vc { color: #008080 } /* Name.Variable.Class */
+body .vg { color: #008080 } /* Name.Variable.Global */
+body .vi { color: #008080 } /* Name.Variable.Instance */
+body .il { color: #009999 } /* Literal.Number.Integer.Long */
+
+  </style>
+
+<pre><span class="cp">#include &lt;Python.h&gt;</span>
+
+<span class="k">static</span> <span class="n">PyObject</span> <span class="o">*</span> <span class="nf">mycmd_do</span><span class="p">(</span><span class="n">PyObject</span> <span class="o">*</span><span class="n">self</span><span class="p">,</span> <span class="n">PyObject</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">command</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">sts</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PyArg_ParseTuple</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s">&quot;s&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">command</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="n">sts</span> <span class="o">=</span> <span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">Py_BuildValue</span><span class="p">(</span><span class="s">&quot;i&quot;</span><span class="p">,</span> <span class="n">sts</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="n">PyMethodDef</span> <span class="n">MyCmdMethods</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">{</span><span class="s">&quot;do&quot;</span><span class="p">,</span> <span class="n">mycmd_do</span><span class="p">,</span> <span class="n">METH_VARARGS</span><span class="p">,</span> <span class="s">&quot;Print output of &#39;cmd&#39;, return exit code.&quot;</span><span class="p">},</span>
+    <span class="p">{</span><span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">}</span>        <span class="cm">/* Sentinel */</span>
+<span class="p">};</span>
+
+<span class="n">PyMODINIT_FUNC</span>
+<span class="nf">initmycmd</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="n">Py_InitModule</span><span class="p">(</span><span class="s">&quot;mycmd&quot;</span><span class="p">,</span> <span class="n">MyCmdMethods</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="p">{</span>
+    <span class="n">Py_SetProgramName</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+    <span class="n">Py_Initialize</span><span class="p">();</span>
+    <span class="n">initmycmd</span><span class="p">();</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></pre>
+
+Great, so we have some example code now, here is how you build an importable module with it:
+<pre>greg@codemine:~/code/mycmd %&gt; cc -dynamic -g -Wall -I/System/Library/Frameworks/Python.framework/Versions/2.6/include/python2.6 -c mycmd.c -o mycmd.o
+greg@codemine:~/code/mycmd %&gt; cc -bundle -undefined dynamic_lookup mycmd.o -o mycmd.so</pre>
+
+<strong>Note:</strong> Don't forget to replace the include path above with the correct path to Python.h on your machine.
+
+This should give you a mycmd.so on unix / linux and a mycmd.dll on windows. In the same directory, run a python interpreter and test it out.
+<pre>greg@codemine:~/code/mycmd %&gt; python
+Python 2.6.3 (r263:75183, Nov  4 2009, 12:53:19)
+[GCC 4.2.1 (Apple Inc. build 5646)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+&gt;&gt;&gt; import mycmd
+&gt;&gt;&gt; mycmd.do('/usr/bin/false')
+256
+&gt;&gt;&gt; mycmd.do('/usr/bin/true')
+0
+&gt;&gt;&gt; mycmd.do('uname -a')
+Darwin codemine.codelounge.int 10.2.0 Darwin Kernel Version 10.2.0: Tue Nov  3 10:37:10 PST 2009; root:xnu-1486.2.11~1/RELEASE_I386 i386
+0
+&gt;&gt;&gt;</pre>
+There is much more you can do around this, thankfully the <a href="http://docs.python.org/extending/">documentation</a> is remarkably good.
+
+There is not much to the actual code. First, we define the C function that will handle our command "mycmd_do". Then we set up an array of methods we want to expose to python "MyCmdMethods". We then setup an initializer "initmycmd" to expose the module which is executed from "main" after the python initializer "Py_Initialize".

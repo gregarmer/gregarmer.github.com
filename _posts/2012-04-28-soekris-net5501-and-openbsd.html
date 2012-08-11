@@ -1,0 +1,40 @@
+--- 
+published: false
+status: draft
+layout: post
+meta: 
+  _edit_last: "2"
+type: post
+tags: 
+- OpenBSD
+- Soekris
+- Unix
+- Unix / Linux
+title: Soekris net5501 and OpenBSD
+---
+This post has been sitting in my drafts for a while now, but I recently upgraded my little <a href="http://soekris.com/products/net5501.html" target="_blank">Soekris firewall</a> and thought I'd use the opportunity to finish this post.
+
+So I have the <a href="http://soekris.com/products/net5501.html" target="_blank">Soekris net5501-70</a> running OpenBSD on <a href="http://soekris.com/products/accessories/sandisk-8gb.html" target="_blank">8GB Compact Flash</a>. The inside of the case looks like this:
+
+<a href="http://code.geek.sh/wp-content/uploads/2012/04/soekris-net5501.jpg"><img class="alignnone size-thumbnail wp-image-444" title="soekris-net5501" src="http://code.geek.sh/wp-content/uploads/2012/04/soekris-net5501-150x150.jpg" alt="" width="150" height="150" /></a>
+
+I also have a 120GB 2.5" HDD which I was planning to use for write heavy things like syslog, traffic accounting and Squid caching, <a href="http://lists.soekris.com/pipermail/soekris-tech/2012-March/018240.html" target="_blank">but I haven't managed to get that running with the CF card just yet</a>. In the meantime, it just contains a backup install of OpenBSD incase the CF card dies.
+
+So let's get to it, here is how to connect and install OpenBSD onto Compact Flash for a Soekris net5501. First you'll need a couple of things:
+<ul>
+	<li>A Soekris net5501 (although this "how-to" should work equally as well on the smaller models).</li>
+	<li>A 9 pin null-modem cable - You can <a href="http://soekris.com/products/accessories/null-modem-cable-6-ft.html" target="_blank">pick one up with your Soekris</a> if you order online.</li>
+	<li>Another machine with a spare serial port (I just use a Debian machine for this).</li>
+</ul>
+<div>The method described below uses DHCP and TFTP to use PXE to boot your Soekris for the installation. This is one of a few available methods, see the <a href="http://wiki.soekris.info" target="_blank">Soekris wiki</a> for other possible methods. I personally prefer the below method as it's the simplest and uses tools you will most likely already have lying around.</div>
+<h3>Preparing your Soekris</h3>
+First you need to install everything into the case (if it's not pre-installed) and plug in your CF card. Grab a cross-over cable and connect eth0 on your Soekris to an available ethernet port on your extra machine.
+<h3>Preparing your DHCP server</h3>
+You'll need another machine plugged into your Soekris with the null-modem cable. This machine needs to run both a DHCP server and a TFTP server so that we can PXE boot the Soekris to kick off the install. You will also require a serial terminal program so you can execute commands on the Soekris. I use cu since it's simple and generally just works, but minicom or any others should work just fine.
+<pre>$ aptitude install cu dhcpd3 tfptd openbsd-inetd</pre>
+<div>
+<h3>Booting it up</h3>
+Once you're happy with the above, plug in your Soekris' power cable and connect to the serial port.
+<pre>$ cu -l /dev/ttyS0 -s 19200</pre>
+<div></div>
+</div>
