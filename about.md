@@ -5,22 +5,26 @@ description: "A little info about me."
 ---
 {% include JB/setup %}
 
-General
--------
+### General
 
-I have a great passion for open source software, Linux, UNIX, the quest for perfect code and doing everything the best way possible.
+I have a great passion for open source software, Linux, UNIX, the quest for
+perfect code and doing everything the best way possible.
 
-What I do
----------
+### What I do
 
-I’m a software and systems architect who lives in the beautiful state of Florida, USA. I work mostly on systems and network code involving high availability, clustering and scalable architecture. My day job involves working on a number of web based applications, looking after a bunch of servers and generally doing my part in making the web a better place. I also spend as much time as I can working on open source software and contributing to the open source community.
+I’m a software and systems architect who lives in the beautiful state of
+Tennessee, USA. I work mostly on systems and network code involving high
+availability, clustering and scalable architecture. My day job involves working
+on a number of web based applications, looking after a bunch of servers and
+generally doing my part in making the web a better place. I also spend as much
+time as I can working on open source software and contributing to the open
+source community.
 
-Interests
----------
+### Interests
+
 … include <a href="http://www.python.org/" target="_blank" onclick="pageTracker._trackPageview('/outgoing/www.python.org/?referer=http%3A%2F%2Fcode.geek.sh%2F');">Python</a>, <a href="http://twistedmatrix.com/trac/" target="_blank" onclick="pageTracker._trackPageview('/outgoing/twistedmatrix.com/trac/?referer=http%3A%2F%2Fcode.geek.sh%2F');">Twisted</a> and most things produced by <a href="https://launchpad.net/divmod.org" target="_blank" onclick="pageTracker._trackPageview('/outgoing/launchpad.net/divmod.org?referer=http%3A%2F%2Fcode.geek.sh%2F');">Divmod</a>, C / C++, Java, application architecture, multi-core processing, efficiency, clustering, scalability, photography and music (mostly the guitar).
 
-Where you can find me
----------------------
+### Where you can find me
 
 <table class="table condensed-table">
   <tbody>

@@ -1,20 +1,25 @@
 ---
 layout: page
-title: Welcome to
-tagline: ./code.geek.sh
+title: ./code.geek.sh
+tagline: Just another geek blog...
 ---
 {% include JB/setup %}
 
 > Welcome to my blog!
 > 
-> Below you'll find a list of posts I've written, hopefully
-> you find something interesting to read.
+> Below you'll find a list of posts I've written:
 
-Posts
------
-
-<ul class="posts">
+<table class="table table-condensed">
+  <tr>
+    <th>Published</th>
+    <th>Category</th>
+    <th>Title</th>
+  </tr>
   {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
+  <tr>
+    <td>{{ post.date | date_to_string }}</td>
+    <td>{{ post.category }}</td>
+    <td><a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></td>
+  </tr>  
   {% endfor %}
-</ul>
+</table>

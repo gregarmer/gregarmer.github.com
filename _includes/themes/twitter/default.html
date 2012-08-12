@@ -14,6 +14,8 @@
     <!-- Le styles -->
     <link href="{{ ASSET_PATH }}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ ASSET_PATH }}/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ ASSET_PATH }}/css/syntax.css" rel="stylesheet" type="text/css" media="all">
+    <link href="{{ ASSET_PATH }}/css/lightbox.css" rel="stylesheet" type="text/css" media="all">
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -33,6 +35,7 @@
             {% assign pages_list = site.pages %}
             {% assign group = 'navigation' %}
             {% include JB/pages_list %}
+            <li {% if page.url == "/photography.html" %}class="active"{% endif %}><a href="/photography.html">Photography</a></li>
             <li {% if page.url == "/code.html" %}class="active"{% endif %}><a href="/code.html">Code</a></li>
             <li {% if page.url == "/about.html" %}class="active"{% endif %}><a href="/about.html">About Me</a></li>
           </ul>
@@ -49,6 +52,16 @@
         <p>&copy; {{ site.author.name }} 2012. All rights reserved.</p>
       </footer>
     </div> <!-- /container -->
+
+    <script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+    <script src="{{ ASSET_PATH }}/js/bootstrap-carousel.js"></script>
+    <script src="{{ ASSET_PATH }}/js/lightbox.js"></script>
+    <script type="text/JavaScript">
+      $(document.links).filter(function() {
+        return this.hostname != window.location.hostname;
+      }).attr('target', '_blank');
+      $('.carousel').carousel();
+    </script>
 
     {% include JB/analytics %}
   </body>
