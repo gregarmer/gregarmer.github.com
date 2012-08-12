@@ -1,9 +1,14 @@
 /* Override some defaults */
 html, body {
   background-color: #eee;
+  padding-top: 30px;
 }
 .navbar {
   margin-bottom: 0;
+  font-size: 14px;
+}
+.brand {
+  font-size: 24px !important;
 }
 .container > footer {
   margin-top: 20px;
