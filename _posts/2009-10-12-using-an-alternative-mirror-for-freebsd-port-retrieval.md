@@ -10,6 +10,7 @@ tags:
 - Unix
 - Unix / Linux
 title: Using an alternative mirror for FreeBSD port retrieval
+category: UNIX / Linux
 ---
 This is something I always search for which doesn't seem to be very clear from the initial results. The mirrors included below are South Africa specific, so if you are not in South Africa then replace the hostname with something more appropriate for your location.
 
