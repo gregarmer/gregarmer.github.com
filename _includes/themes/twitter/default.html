@@ -30,10 +30,12 @@
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="{{ HOME_PATH }}">{{ site.title }}</a>
-          <ul class="nav">
+          <ul class="nav pull-right">
             {% assign pages_list = site.pages %}
             {% assign group = 'navigation' %}
             {% include JB/pages_list %}
+            <li {% if page.url == "/code.html" %}class="active"{% endif %}><a href="/code.html">Code</a></li>
+            <li {% if page.url == "/about.html" %}class="active"{% endif %}><a href="/about.html">About Me</a></li>
           </ul>
         </div>
       </div>

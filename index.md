@@ -5,11 +5,10 @@ tagline: ./code.geek.sh
 ---
 {% include JB/setup %}
 
-Pages
-------------
-
- * [About me](/about.html)
- * [Code](/code.html)
+> Welcome to my blog!
+> 
+> Below you'll find a list of posts I've written, hopefully
+> you find something interesting to read.
 
 Posts
 -----
