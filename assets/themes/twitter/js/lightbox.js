@@ -48,8 +48,8 @@ lightbox = new Lightbox options
   LightboxOptions = (function() {
 
     function LightboxOptions() {
-      this.fileLoadingImage = '/assets/themes/twitter/img/loading.gif';
-      this.fileCloseImage = '/assets/themes/twitter/img/close.png';
+      this.fileLoadingImage = '/assets/images/loading.gif';
+      this.fileCloseImage = '/assets/images/close.png';
       this.resizeDuration = 700;
       this.fadeDuration = 500;
       this.labelImage = "Image";
