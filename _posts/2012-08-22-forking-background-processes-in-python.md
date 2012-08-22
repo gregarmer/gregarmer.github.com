@@ -92,5 +92,18 @@ Finally, we execute the original code, now inside a detached child process.
 This can run for as long as it needs, and could potentially log to a log file
 if you care about any stdout output.
 
+There are also some better alternatives, something like this for example:
+
+{% highlight python %}
+import os
+os.spawnl(os.P_DETACH, 'some_log_running_command')
+{% endhighlight %}
+
+*Note*: os.P_DETACH is win32 specific. For better portability you could use
+os.P_NOWAIT.
+
+[Here is the documentation][3].
+
 [1]: http://en.wikipedia.org/wiki/Fork_(operating_system) "Fork"
 [2]: http://en.wikipedia.org/wiki/Process_(computing) "Process"
+[3]: http://docs.python.org/library/os.html#os.spawnl "os.spawnl"
