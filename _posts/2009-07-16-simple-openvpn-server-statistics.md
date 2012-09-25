@@ -82,7 +82,7 @@ for line in stats:
                 h['virt'] = cols[0]
 
 
-ft = "%(cn)-25s %(virt)-18s %(real)-15s %(sent)13s %(recv)13s %(since)25s"
+fmt = "%(cn)-25s %(virt)-18s %(real)-15s %(sent)13s %(recv)13s %(since)25s"
 print fmt % headers
 print "\n".join([fmt % h for h in hosts])
 {% endhighlight %}
