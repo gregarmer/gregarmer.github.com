@@ -22,9 +22,9 @@ would get the below (502 Bad Gateway) error.
 
 We have a machine running nginx on port 80 (and 443 SSL) that serves up a bunch
 of development tools - buildbots, Jenkins, git repos and of course a few
-subversion repos.
+subversion repos. Behind it we have an Apache2 server that serves up subversion
+repos over WebDAV.
 
-The subversion repository uses WebDAV / DAV SVN and is served up via Apache 2.
 nginx simply reverse proxies requests to the backend Apache 2 servers and
 handles the SSL termination as our repos are only available over SSL (https).
 
