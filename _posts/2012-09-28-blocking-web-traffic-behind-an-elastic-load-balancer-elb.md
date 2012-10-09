@@ -26,7 +26,7 @@ the internet, and specific traffic is NAT'd out another gateway.
 
 We narrowed down the attack to a set of IPs all originating from the same
 netblock. These requests were largely made up of SQL injection attacks, along
-with some other crazy requests designed to attempt to execute *nix commands.
+with some other crazy requests designed to attempt to execute \*nix commands.
 
 The requests looked like this:
 
