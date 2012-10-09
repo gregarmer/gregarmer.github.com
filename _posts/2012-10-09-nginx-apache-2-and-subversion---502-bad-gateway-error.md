@@ -33,7 +33,7 @@ handles the SSL termination as our repos are only available over SSL (https).
 The actual problem is not really that obvious.
 
 When you perform a remote svn operation like MOVE or COPY the actual request is
-translated into a WebDAV operation that looks similar to this:
+translated into a WebDAV request that looks similar to this:
 
     COPY /svn/repos/oldname.txt HTTP/1.1
     Host: svn.example.org
