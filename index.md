@@ -1,6 +1,6 @@
 ---
 layout: page
-title: ./code.geek.sh
+title: ./sigterm.sh
 tagline: Just another geek blog...
 ---
 {% include JB/setup %}

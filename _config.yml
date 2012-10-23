@@ -9,11 +9,11 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : ./code.geek.sh
-tagline: Just another code geek
+title : ./sigterm.sh
+tagline: Just another coders blog
 author :
   name : Gregory Armer
-  email : greg@code.geek.sh
+  email : greg@sigterm.sh
   github : gregarmer
   twitter : gregarmer
 
