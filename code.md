@@ -5,6 +5,10 @@ description: ""
 ---
 {% include JB/setup %}
 
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+
 These are some of the open source projects that I am currently working on.
 
 ### puppetlast

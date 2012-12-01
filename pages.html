@@ -6,6 +6,10 @@ group: navigation
 ---
 {% include JB/setup %}
 
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+
 <h2>All Pages</h2>
 <ul>
 {% assign pages_list = site.pages %}

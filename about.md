@@ -5,6 +5,10 @@ description: "A little info about me."
 ---
 {% include JB/setup %}
 
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+
 ### General
 
 I have a great passion for open source software, Linux, UNIX, the quest for

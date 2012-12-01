@@ -5,6 +5,10 @@ description: "A little amateur photography"
 ---
 {% include JB/setup %}
 
+<div class="page-header">
+  <h1>{{ page.title }} {% if page.tagline %} <small>{{ page.tagline }}</small>{% endif %}</h1>
+</div>
+
 Here are a few photos I've taken, you can see the rest up at my
 [Flickr profile](http://www.flickr.com/photos/gregarmer/).
 
