@@ -16,11 +16,11 @@ perfect code and doing everything the best way possible.
 
 ### What I do
 
-I’m a software and systems architect who lives in the beautiful state of
-Tennessee, USA. I work mostly on systems and network code involving high
-availability, clustering and scalable architecture. My day job involves working
-on a number of web based applications, looking after a bunch of servers and
-generally doing my part in making the web a better place. I also spend as much
+I’m a software and systems architect who lives in New York, USA. I work mostly
+on systems and network code involving high availability, clustering and
+scalable architecture. My day job involves working on a number of web based
+enterprise applications, looking after a bunch of servers and generally doing
+my part in making the web a better place. I also spend as much
 time as I can working on open source software and contributing to the open
 source community.
 
