@@ -254,3 +254,13 @@ is currently the primary.
 Within a few seconds, you should see all services move over to bob, including
 the floating IP, NFS, and the /data mount.  A quick check of *cat /proc/drbd*
 should also show bob set to Primary.
+
+### References
+
+Finally, the links I promised in the beginning of this post.
+
+* Why the servers are named [Alice and Bob](http://en.wikipedia.org/wiki/Alice_and_Bob)
+* An [older guide](http://www.howtoforge.com/high_availability_nfs_drbd_heartbeat) I used while figuring this out
+* [Linode HA info](http://version2beta.com/articles/high-availability-linode-pairs/)
+* [Heartbeat](http://linux-ha.org/wiki/Heartbeat)
+* [DRBD 8.3.x Users Guide](http://www.drbd.org/users-guide-8.3/)
